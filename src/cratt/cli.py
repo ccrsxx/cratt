@@ -6,7 +6,7 @@ from cratt.cra import create_react_app
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description='Create React App with TypeScript and tailwindcss',
+        description='Create React App with TypeScript and Tailwind CSS',
         prog='cra',
         allow_abbrev=False,
     )

@@ -1,5 +1,5 @@
-from cratt import cra
+from cratt import cli
 
 
 if __name__ == '__main__':
-    cra.run_cli()
+    cli.run_cli()

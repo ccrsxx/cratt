@@ -2,7 +2,7 @@ import os
 import re
 import json
 
-from template import (
+from cratt.template import (
     APP,
     SASS,
     INDEX,

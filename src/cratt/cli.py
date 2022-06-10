@@ -1,7 +1,7 @@
 import argparse
 import sys
 
-from cra import create_react_app
+from cratt.cra import create_react_app
 
 
 def parse_args():

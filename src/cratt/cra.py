@@ -104,6 +104,8 @@ def setup_project(app_name: str):
         else:
             pass
 
+    os.chdir('..')
+
     os.system('npm i -D husky lint-staged && npx husky install')
 
     os.system(
@@ -118,7 +120,7 @@ def setup_project(app_name: str):
         f'gh repo edit ccrsxx/{app_name} --add-topic=react,typescript,tailwindcss,html'
     )
 
-    os.system('code .. && npm start')
+    os.system('code . && npm start')
 
 
 def get_airbnb_eslint_config():
@@ -157,13 +159,10 @@ def create_react_app(app_name: str, module: list[str] = [], dev_module: list[str
     os.chdir(app_name)
 
     airbnb_config = get_airbnb_eslint_config()
-
     module, dev_module = [' '.join(mod) for mod in (module, dev_module)]  # type: ignore
 
     os.system(f'npm i sass {module if module else ""}')
-
     os.system(f'npm i -D {airbnb_config} {dev_module if dev_module else ""}')
-
     os.system('npx tailwindcss init -p')
 
     setup_project(app_name)

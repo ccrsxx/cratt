@@ -16,8 +16,8 @@ from cratt.template import (
 
 
 def setup_project(app_name: str):
-    name = ' '.join(app_name.split('-')).title()
     homepage = f'https://ccrsxx.github.io/{app_name}'
+    name = ' '.join(app_name.split('-')).title()
 
     with open('public\\index.html', 'r+') as f:
         html = f.read()
@@ -45,6 +45,28 @@ def setup_project(app_name: str):
         f.seek(0)
 
         json.dump(manifest, f, indent=2)
+
+    with open('.eslintrc.json', 'w') as f:
+        json.dump(json.loads(ES_LINT_CONFIG), f, indent=2)
+
+    with open('.eslintignore', 'w') as f:
+        f.write(ES_LINT_IGNORE)
+
+    with open('package.json', 'r+') as f:
+        content = json.load(f)
+
+        content['homepage'] = homepage
+        content['lint-staged'] = {'**/*': 'prettier --write --ignore-unknown'}
+        content['scripts']['predeploy'] = 'npm run build'
+        content['scripts']['deploy'] = 'gh-pages -d build'
+
+        f.seek(0)
+
+        json.dump(content, f, indent=2)
+
+    with open('.prettierrc.json', 'w') as f, open('.prettierignore', 'w') as j:
+        json.dump(json.loads(PRETTIER_CONFIG), f, indent=2)
+        j.write(PRETTIER_IGNORE.lstrip())
 
     with open('tailwind.config.js', 'r+') as f:
         tailwind = f.read()
@@ -83,28 +105,6 @@ def setup_project(app_name: str):
             pass
 
     os.chdir('..')
-
-    with open('.eslintrc.json', 'w') as f:
-        json.dump(json.loads(ES_LINT_CONFIG), f, indent=2)
-
-    with open('.eslintignore', 'w') as f:
-        f.write(ES_LINT_IGNORE)
-
-    with open('package.json', 'r+') as f:
-        content = json.load(f)
-
-        content['lint-staged'] = {'**/*': 'prettier --write --ignore-unknown'}
-        content['homepage'] = homepage
-        content['scripts']['predeploy'] = 'npm run build'
-        content['scripts']['deploy'] = 'gh-pages -d build'
-
-        f.seek(0)
-
-        json.dump(content, f, indent=2)
-
-    with open('.prettierrc.json', 'w') as f, open('.prettierignore', 'w') as j:
-        json.dump(json.loads(PRETTIER_CONFIG), f, indent=2)
-        j.write(PRETTIER_IGNORE.lstrip())
 
     os.system('npm i -D husky lint-staged && npx husky install')
 

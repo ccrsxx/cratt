@@ -74,7 +74,7 @@ ES_LINT_CONFIG = """
     "linebreak-style": "off",
     "no-nested-ternary": "off",
     "react/self-closing-comp": "warn",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
      "import/order": [
       "error",
       {

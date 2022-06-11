@@ -2,7 +2,7 @@ import os
 import re
 import json
 
-from cratt.template import (
+from .template import (
     APP,
     SASS,
     INDEX,
@@ -104,8 +104,6 @@ def setup_project(app_name: str):
         else:
             pass
 
-    os.chdir('..')
-
     os.system('npm i -D husky lint-staged && npx husky install')
 
     os.system(
@@ -120,7 +118,7 @@ def setup_project(app_name: str):
         f'gh repo edit ccrsxx/{app_name} --add-topic=react,typescript,tailwindcss,html'
     )
 
-    os.system('code . && npm start')
+    os.system('code .. && npm start')
 
 
 def get_airbnb_eslint_config():

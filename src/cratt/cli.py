@@ -14,16 +14,27 @@ def parse_args():
     parser.add_argument('app_name', help='app name')
 
     parser.add_argument(
-        'module', nargs='*', help='module to install (optional)', default=[]
+        'module',
+        nargs='*',
+        action='store',
+        help='module to install (optional)',
+        default=[],
+    )
+
+    parser.add_argument(
+        '-p',
+        '--push-github',
+        action='store_true',
+        help='push to github (optional)',
     )
 
     parser.add_argument(
         '-D',
         '--save-dev',
         nargs='+',
+        action='store',
         metavar='module',
         help='add module to devDependencies (optional)',
-        action='store',
         dest='dev_module',
         default=[],
     )

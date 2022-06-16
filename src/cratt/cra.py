@@ -15,7 +15,7 @@ from .template import (
 )
 
 
-def setup_project(app_name: str):
+def setup_project(app_name: str, push_github: bool):
     homepage = f'https://ccrsxx.github.io/{app_name}'
     name = ' '.join(app_name.split('-')).title()
 
@@ -112,13 +112,14 @@ def setup_project(app_name: str):
         'npm set-script prepare "husky install" && npx husky add .husky/pre-commit "npx lint-staged"'
     )
 
-    os.system(
-        f'git ac "add things up" && gh repo create --public -h {homepage} -s . --push'
-    )
+    if push_github:
+        os.system(
+            f'git ac "add things up" && gh repo create --public -h {homepage} -s . --push'
+        )
 
-    os.system(
-        f'gh repo edit ccrsxx/{app_name} --add-topic=react,typescript,tailwindcss,html'
-    )
+        os.system(
+            f'gh repo edit ccrsxx/{app_name} --add-topic=react,typescript,tailwindcss,html'
+        )
 
     os.system('code . && npm start')
 
@@ -153,16 +154,20 @@ def get_airbnb_eslint_config():
     return ' '.join(results)
 
 
-def create_react_app(app_name: str, module: list[str] = [], dev_module: list[str] = []):
+def create_react_app(
+    app_name: str, module: list[str], push_github: bool, dev_module: list[str]
+):
     os.system(f'npx create-react-app {app_name} --template typescript')
 
     os.chdir(app_name)
 
     airbnb_config = get_airbnb_eslint_config()
+
     module, dev_module = [' '.join(mod) for mod in (module, dev_module)]  # type: ignore
 
     os.system(f'npm i sass {module if module else ""}')
     os.system(f'npm i -D {airbnb_config} {dev_module if dev_module else ""}')
+
     os.system('npx tailwindcss init -p')
 
-    setup_project(app_name)
+    setup_project(app_name, push_github)

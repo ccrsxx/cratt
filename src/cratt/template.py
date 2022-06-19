@@ -87,7 +87,7 @@ ES_LINT_CONFIG = """
 """
 
 ES_LINT_IGNORE = """
-tailwindcss.config.js
+tailwind.config.js
 postcss.config.js
 """
 

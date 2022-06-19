@@ -1,4 +1,4 @@
-# [cratt](https://github.com/ccrsxx/cratt) &middot; [![PyPI Latest Release](https://img.shields.io/pypi/v/cratt.svg)](https://pypi.org/project/cratt) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+# [cratt](https://github.com/ccrsxx/cratt) &middot; [![Upload Python Package](https://github.com/ccrsxx/cratt/actions/workflows/python-publish.yml/badge.svg)](https://github.com/ccrsxx/cratt/actions/workflows/python-publish.yml) [![PyPI Latest Release](https://img.shields.io/pypi/v/cratt.svg)](https://pypi.org/project/cratt) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 A CLI for creating React App with TypeScript and TailwindCSS. It comes already configured with ESLint, Prettier, and Husky. Also, It can automatically push the project to Github, add relevant tags and description, and deploy it to Github Pages.
 

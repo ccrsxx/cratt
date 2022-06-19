@@ -2,6 +2,7 @@ import os
 import re
 import json
 
+from .utils import call
 from .template import (
     APP,
     SASS,
@@ -71,7 +72,7 @@ def setup_project(app_name: str, push_github: bool):
     with open('tailwind.config.js', 'r+') as f:
         tailwind = f.read()
         tailwind = tailwind.replace(
-            'content: []', "content: ['./src/**/*.{ts,tsx}', './public/index.html']"
+            'content: []', "content: ['./src/**/*.tsx', './public/index.html']"
         )
 
         f.seek(0)
@@ -106,22 +107,24 @@ def setup_project(app_name: str, push_github: bool):
 
     os.chdir('..')
 
-    os.system('npm i -D husky lint-staged && npx husky install')
+    call('npm i -D husky lint-staged', 'npx husky install')
 
-    os.system(
-        'npm set-script prepare "husky install" && npx husky add .husky/pre-commit "npx lint-staged"'
+    call(
+        'npm set-script prepare "husky install"',
+        'npx husky add .husky/pre-commit "npx lint-staged"',
     )
 
     if push_github:
-        os.system(
-            f'git ac "add things up" && gh repo create --public -h {homepage} -s . --push'
+        call(
+            f'git ac "add things up"',
+            'gh repo create --public -h {homepage} -s . --push',
         )
 
-        os.system(
+        call(
             f'gh repo edit ccrsxx/{app_name} --add-topic=react,typescript,tailwindcss,html'
         )
 
-    os.system('code . && npm start')
+    call('code .', 'npm start')
 
 
 def get_airbnb_eslint_config():
@@ -157,7 +160,7 @@ def get_airbnb_eslint_config():
 def create_react_app(
     app_name: str, module: list[str], push_github: bool, dev_module: list[str]
 ):
-    os.system(f'npx create-react-app {app_name} --template typescript')
+    call(f'npx create-react-app {app_name} --template typescript')
 
     os.chdir(app_name)
 
@@ -165,9 +168,9 @@ def create_react_app(
 
     module, dev_module = [' '.join(mod) for mod in (module, dev_module)]  # type: ignore
 
-    os.system(f'npm i sass {module if module else ""}')
-    os.system(f'npm i -D {airbnb_config} {dev_module if dev_module else ""}')
+    call(f'npm i sass {module if module else ""}')
+    call(f'npm i -D {airbnb_config} {dev_module if dev_module else ""}')
 
-    os.system('npx tailwindcss init -p')
+    call('npx tailwindcss init -p')
 
     setup_project(app_name, push_github)

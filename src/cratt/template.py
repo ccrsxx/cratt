@@ -67,6 +67,7 @@ ES_LINT_CONFIG = """
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-unused-expressions": "off",
     "react/no-array-index-key": "off",
     "react/jsx-props-no-spreading": "off",
     "jsx-quotes": ["error", "prefer-single"],

@@ -20,15 +20,6 @@ def setup_project(app_name: str, push_github: bool):
     homepage = f'https://ccrsxx.github.io/{app_name}'
     name = ' '.join(app_name.split('-')).title()
 
-    with open('manifest.json', 'r+') as f:
-        manifest = json.load(f)
-        manifest['name'] = name
-        manifest['short_name'] = name
-
-        f.seek(0)
-
-        json.dump(manifest, f, indent=2)
-
     with open('.eslintrc.json', 'w') as f:
         json.dump(json.loads(ES_LINT_CONFIG), f, indent=2)
 
@@ -82,6 +73,15 @@ def setup_project(app_name: str, push_github: bool):
 
         f.write(html)
 
+    with open('manifest.json', 'r+') as f:
+        manifest = json.load(f)
+        manifest['name'] = name
+        manifest['short_name'] = name
+
+        f.seek(0)
+
+        json.dump(manifest, f, indent=2)
+
     os.chdir(os.path.join('..', 'src'))
 
     for folder in ADDED_DIRECTORY:
@@ -119,7 +119,7 @@ def setup_project(app_name: str, push_github: bool):
     if push_github:
         call(
             f'git ac "add things up"',
-            'gh repo create --public -h {homepage} -s . --push',
+            f'gh repo create --public -h {homepage} -s . --push',
         )
 
         call(

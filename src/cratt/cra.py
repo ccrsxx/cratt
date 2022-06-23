@@ -20,25 +20,7 @@ def setup_project(app_name: str, push_github: bool):
     homepage = f'https://ccrsxx.github.io/{app_name}'
     name = ' '.join(app_name.split('-')).title()
 
-    with open('public\\index.html', 'r+') as f:
-        html = f.read()
-        html = html.replace('React App', name)
-        commented_html = [
-            *map(
-                lambda x: x[1],
-                re.findall('(png|json|div).+?(\n.+?<!--.+?-->)', html, re.DOTALL),
-            )
-        ]
-
-        for comment in commented_html:
-            html = html.replace(comment, '')
-
-        f.seek(0)
-        f.truncate()
-
-        f.write(html)
-
-    with open('public\\manifest.json', 'r+') as f:
+    with open('manifest.json', 'r+') as f:
         manifest = json.load(f)
         manifest['name'] = name
         manifest['short_name'] = name
@@ -80,7 +62,27 @@ def setup_project(app_name: str, push_github: bool):
 
         f.write(tailwind)
 
-    os.chdir('src')
+    os.chdir('public')
+
+    with open('index.html', 'r+') as f:
+        html = f.read()
+        html = html.replace('React App', name)
+        commented_html = [
+            *map(
+                lambda x: x[1],
+                re.findall('(png|json|div).+?(\n.+?<!--.+?-->)', html, re.DOTALL),
+            )
+        ]
+
+        for comment in commented_html:
+            html = html.replace(comment, '')
+
+        f.seek(0)
+        f.truncate()
+
+        f.write(html)
+
+    os.chdir(os.path.join('..', 'src'))
 
     for folder in ADDED_DIRECTORY:
         os.makedirs(folder)
@@ -168,8 +170,7 @@ def create_react_app(
 
     module, dev_module = [' '.join(mod) for mod in (module, dev_module)]  # type: ignore
 
-    call(f'npm i sass {module if module else ""}')
-    call(f'npm i -D {airbnb_config} {dev_module if dev_module else ""}')
+    call(f'npm i sass {module}', f'npm i -D {airbnb_config} {dev_module}')
 
     call('npx tailwindcss init -p')
 

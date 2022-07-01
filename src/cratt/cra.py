@@ -26,6 +26,19 @@ def setup_project(app_name: str, push_github: bool):
     with open('.eslintignore', 'w') as f:
         f.write(ES_LINT_IGNORE)
 
+    with open('.prettierrc.json', 'w') as f, open('.prettierignore', 'w') as j:
+        json.dump(json.loads(PRETTIER_CONFIG), f, indent=2)
+        j.write(PRETTIER_IGNORE.lstrip())
+
+    with open('tsconfig.json', 'r+') as f:
+        content = json.load(f)
+
+        content['exclude'] = ['src/**/*.test.{ts,tsx}']
+
+        f.seek(0)
+
+        json.dump(content, f, indent=2)
+
     with open('package.json', 'r+') as f:
         content = json.load(f)
 
@@ -37,10 +50,6 @@ def setup_project(app_name: str, push_github: bool):
         f.seek(0)
 
         json.dump(content, f, indent=2)
-
-    with open('.prettierrc.json', 'w') as f, open('.prettierignore', 'w') as j:
-        json.dump(json.loads(PRETTIER_CONFIG), f, indent=2)
-        j.write(PRETTIER_IGNORE.lstrip())
 
     with open('tailwind.config.js', 'r+') as f:
         tailwind = f.read()
@@ -86,8 +95,8 @@ def setup_project(app_name: str, push_github: bool):
 
     for folder in ADDED_DIRECTORY:
         os.makedirs(folder)
-        with open(f'{folder}\\index.ts', 'w') as f:
-            f.write('export default undefined;')
+        with open(os.path.join(folder, 'index.ts'), 'w') as f:
+            f.write('export {};')
 
     for file in os.listdir():
         if file not in CHANGED_FILE:

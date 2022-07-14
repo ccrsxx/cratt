@@ -179,7 +179,10 @@ def create_react_app(
 
     module, dev_module = [' '.join(mod) for mod in (module, dev_module)]  # type: ignore
 
-    call(f'npm i sass {module}', f'npm i -D {airbnb_config} {dev_module}')
+    call(
+        f'npm i sass react-router-dom {module}',
+        f'npm i -D {airbnb_config} {dev_module}',
+    )
 
     call('npx tailwindcss init -p')
 

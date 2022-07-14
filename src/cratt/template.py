@@ -1,4 +1,13 @@
-ADDED_DIRECTORY = ['components', 'common']
+ADDED_DIRECTORY = [
+    'api',
+    'components',
+    'contexts',
+    'hooks',
+    'pages',
+    'tests',
+    'types',
+    'utils',
+]
 
 CHANGED_FILE = ['App.tsx', 'index.tsx', 'index.css', 'react-app-env.d.ts']
 
@@ -60,7 +69,13 @@ ES_LINT_CONFIG = """
     "sourceType": "module"
   },
   "rules": {
-    "@typescript-eslint/quotes": ["error", "single"],
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowHigherOrderFunctions": false
+      }
+    ],
+    "@typescript-eslint/quotes": ["error", "single", { "avoidEscape": true }],
     "@typescript-eslint/semi": ["warn", "always"],
     "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/comma-dangle": ["error", "never"],
@@ -68,19 +83,26 @@ ES_LINT_CONFIG = """
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-unused-expressions": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "error",
+    "react/prop-types": "off",
+    "react/button-has-type": "off",
     "react/no-array-index-key": "off",
     "react/jsx-props-no-spreading": "off",
+    "react/jsx-no-constructed-context-values": "off",
     "jsx-quotes": ["error", "prefer-single"],
+    "curly": ["error", "multi"],
     "no-console": "warn",
     "linebreak-style": "off",
     "no-nested-ternary": "off",
     "react/self-closing-comp": "warn",
     "react/require-default-props": "off",
+    "react/no-unescaped-entities": "off",
+    "import/no-default-export": "error",
     "import/prefer-default-export": "off",
-     "import/order": [
+    "import/order": [
       "error",
       {
-        "groups": ["builtin", "external", "sibling", "parent", "index", "type"]
+        "groups": ["builtin", "external", "parent", "sibling", "index", "type"]
       }
     ]
   }

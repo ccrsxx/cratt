@@ -1,10 +1,11 @@
 ADDED_DIRECTORY = [
-    'api',
+    'assets',
     'components',
-    'contexts',
+    'context',
+    'data',
     'hooks',
     'pages',
-    'tests',
+    'services',
     'types',
     'utils',
 ]
@@ -69,12 +70,6 @@ ES_LINT_CONFIG = """
     "sourceType": "module"
   },
   "rules": {
-    "@typescript-eslint/explicit-function-return-type": [
-      "error",
-      {
-        "allowHigherOrderFunctions": false
-      }
-    ],
     "@typescript-eslint/quotes": ["error", "single", { "avoidEscape": true }],
     "@typescript-eslint/semi": ["warn", "always"],
     "@typescript-eslint/consistent-type-imports": "error",
@@ -84,6 +79,7 @@ ES_LINT_CONFIG = """
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-unused-expressions": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "error",
+    "@typescript-eslint/explicit-function-return-type": "error",
     "react/prop-types": "off",
     "react/button-has-type": "off",
     "react/no-array-index-key": "off",

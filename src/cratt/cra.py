@@ -30,15 +30,6 @@ def setup_project(app_name: str, push_github: bool):
         json.dump(json.loads(PRETTIER_CONFIG), f, indent=2)
         j.write(PRETTIER_IGNORE.lstrip())
 
-    with open('tsconfig.json', 'r+') as f:
-        content = json.load(f)
-
-        content['exclude'] = ['src/**/*.test.{ts,tsx}']
-
-        f.seek(0)
-
-        json.dump(content, f, indent=2)
-
     with open('package.json', 'r+') as f:
         content = json.load(f)
 

@@ -50,6 +50,3 @@ def run_cli():
     kwargs = parse_args()
 
     create_react_app(**kwargs)
-
-
-run_cli()
